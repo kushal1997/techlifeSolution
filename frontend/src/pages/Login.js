@@ -2,6 +2,7 @@ import React from 'react'
 import "./css/login.css"
 import { Formik, Form, Field } from 'formik';
 import * as Yup from 'yup';
+import axios from "axios";
 
 export const Login = () => {
   const validationSchema = Yup.object().shape({
@@ -12,6 +13,7 @@ export const Login = () => {
   const onSubmit = (values) => {
     // Handle form submission here
     console.log('Form submitted:', values);
+
   };
 
   const validationSchemaSignup = Yup.object().shape({
@@ -20,9 +22,18 @@ export const Login = () => {
     signUpPass: Yup.string().required('Password is required'),
   });
 
-  const onSubmitSignup = (values) => {
+  const onSubmitSignup = async (values) => {
     // Handle form submission here
     console.log('Form submitted:', values);
+    const postData = {
+      name: values.signUpName,
+      email: values.signUpEmail,
+      password: values.signUpPass,
+    }
+    const res = await axios.post("http://localhost:8000/api/register",postData)
+    if(res){
+      console.log(res);
+    }
   };
   return (
     <div className='login'>
@@ -115,7 +126,7 @@ export const Login = () => {
                                   {errors.signUpName && touched.signUpName && <div className="invalid-feedback">{errors.signUpName}</div>}
                                 </div>
                                 <div className="form-group mt-2">
-                                <Field
+                                  <Field
                                     type="email"
                                     name="signUpEmail"
                                     className={`form-style ${errors.signUpEmail && touched.signUpEmail ? 'is-invalid' : ''}`}
@@ -127,7 +138,7 @@ export const Login = () => {
                                   {errors.signUpEmail && touched.signUpEmail && <div className="invalid-feedback">{errors.signUpEmail}</div>}
                                 </div>
                                 <div className="form-group mt-2">
-                                <Field
+                                  <Field
                                     type="password"
                                     name="signUpPass"
                                     className={`form-style ${errors.signUpPass && touched.signUpPass ? 'is-invalid' : ''}`}
@@ -144,10 +155,10 @@ export const Login = () => {
                               </Form>
                             )}
                           </Formik>
-                          
-                        
-    
-                          
+
+
+
+
                         </div>
                       </div>
                     </div>
