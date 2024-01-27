@@ -1,7 +1,15 @@
 import React from 'react'
+import { Route, Routes } from "react-router-dom";
+import { Login } from '../pages/Login';
+
 
 export const AllRoutes = () => {
   return (
-    <div>AllRoutes</div>
+    <>
+    <Routes>
+      <Route path="/" element={<Login />}/>
+    </Routes>
+      
+    </>
   )
 }
