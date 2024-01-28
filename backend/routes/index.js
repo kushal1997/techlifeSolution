@@ -9,5 +9,5 @@ router.get('/',(req,res)=>{
 })
 
 router.use('/api',require('./auth'))
-
+router.use('/api',require('./business'))
 module.exports=router
