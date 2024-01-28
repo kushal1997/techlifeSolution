@@ -14,9 +14,7 @@ export const AllRoutes = () => {
       <Route path="/" element={<Login />}/>
       <Route path="/homepage" element={ 
         <>
-        <Header/>
           <ProtectedRoutes element={<Home/>}/>
-        <Footer/>
         </>
       
        }/>
