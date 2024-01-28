@@ -22,9 +22,7 @@ export const AuthContextProvider = ({ children }) => {
     localStorage.removeItem("name");
 
     navigate('/')
-    toast.success("Logout Successfully !", {
-      position: toast.POSITION.BOTTOM_RIGHT,
-    });
+    toast.success("Logout Successfully !");
   }
   const handleLogout = () => {
     const confirmLogout = window.confirm("Are you sure you want to log out?");
@@ -32,17 +30,14 @@ export const AuthContextProvider = ({ children }) => {
       localStorage.removeItem("token");
       localStorage.removeItem("userId");
       localStorage.removeItem("name");
-      toast.success("Logout Successfully !", {
-        position: toast.POSITION.BOTTOM_RIGHT,
-      });
+      toast.success("Logout Successfully !");
       navigate('/')
     } else {
       // Show a cancellation notification using toast
       toast.info('Logout cancelled. You are still logged in.', {
         onClose: () => {
           navigate("/homepage");
-        },
-        position: toast.POSITION.BOTTOM_RIGHT,
+        }
       });
 
     }
@@ -68,6 +63,7 @@ export const AuthContextProvider = ({ children }) => {
             localStorage.setItem("userId",res.data.data._id);
             localStorage.setItem("name",res.data.data.name);
             navigate("/homepage");
+            toast.success("Login Successfully !");
           }
           else {
             alert("Wrong Credentials")
@@ -84,7 +80,7 @@ export const AuthContextProvider = ({ children }) => {
   return (
     <AuthContext.Provider value={{ setUser, handleLogout, errorHandleLogout }}>
       {children}
-      <ToastContainer autoClose={1000} />
+      <ToastContainer autoClose={2000} />
     </AuthContext.Provider>
   );
 };

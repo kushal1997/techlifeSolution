@@ -1,7 +1,10 @@
-import React from 'react'
+import React, { useContext } from 'react'
 import "./css/home.css"
 import gif from "../assets/mobile.gif"
+import AuthContext from '../context/AuthContext'
 export const Home = () => {
+  const {handleLogout}=useContext(AuthContext)
+  const name=localStorage.getItem("name").toUpperCase();
   return (
     <div>
   <div className="header-blue">
@@ -32,8 +35,10 @@ export const Home = () => {
               
             </div>
           </form>
-         
-          <a className="btn btn-light action-button" role="button" href="#">
+          <a href="/homepage" id='nameTag'>
+             Hii {name}
+            </a>
+          <a className="btn btn-light action-button" role="button" onClick={()=>handleLogout()}>
             Sign Out
           </a>
         </div>

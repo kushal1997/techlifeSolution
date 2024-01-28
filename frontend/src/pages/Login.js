@@ -1,13 +1,14 @@
-import React, { useContext } from 'react'
+import React, { useContext, useState } from 'react'
 import "./css/login.css"
 import { Formik, Form, Field } from 'formik';
 import * as Yup from 'yup';
 import axios from "axios";
 import AuthContext from '../context/AuthContext';
-
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 export const Login = () => {
 
-  const {setUser} =useContext(AuthContext);
+  const { setUser } = useContext(AuthContext);
   const validationSchema = Yup.object().shape({
     logemail: Yup.string().email('Invalid email address').required('Required'),
     logpass: Yup.string().required('Password is required'),
@@ -27,7 +28,7 @@ export const Login = () => {
     setUser({
       email: values.logemail,
       password: values.logpass,
-  });
+    });
   };
 
   const validationSchemaSignup = Yup.object().shape({
@@ -35,7 +36,12 @@ export const Login = () => {
     signUpEmail: Yup.string().email('Invalid email address').required('Required'),
     signUpPass: Yup.string().required('Password is required'),
   });
+  const [isChecked, setIsChecked] = useState(true);
 
+  // Event handler to toggle the checkbox state
+  const handleCheckboxChange = () => {
+    setIsChecked(!isChecked);
+  };
   const onSubmitSignup = async (values) => {
     // Handle form submission here
     console.log('Form submitted:', values);
@@ -44,9 +50,13 @@ export const Login = () => {
       email: values.signUpEmail,
       password: values.signUpPass,
     }
-    const res = await axios.post("http://localhost:8000/api/register",postData)
-    if(res){
+    const res = await axios.post("http://localhost:8000/api/register", postData)
+    if (res.data.success === true) {
       console.log(res);
+      toast.success("Registered Successfully !");
+      window.location.reload();
+    } else{
+      toast.error(`${res.data.message}`)
     }
   };
   return (
@@ -65,6 +75,7 @@ export const Login = () => {
                   type="checkbox"
                   id="reg-log"
                   name="reg-log"
+                  
                 />
                 <label htmlFor="reg-log" />
                 <div className="card-3d-wrap mx-auto">
@@ -183,6 +194,7 @@ export const Login = () => {
           </div>
         </div>
       </div>
+      <ToastContainer/>
     </div>
 
   )
