@@ -13,9 +13,9 @@ const AuthContext = createContext({
 
 
 export const AuthContextProvider = ({ children }) => {
+const BACKEND_URL= process.env.REACT_APP_BACKEND_URL;
+
   const navigate=useNavigate();
-  // const BACKEND_URL = process.env.REACT_APP_BACKEND_URL;
-  const BACKEND_URL = 'http://localhost:8000';
   const errorHandleLogout = () => {
     localStorage.removeItem("token");
     localStorage.removeItem("userId");
@@ -55,7 +55,7 @@ export const AuthContextProvider = ({ children }) => {
     // console.log("success",success);
     try {
       // axios.post(`${BACKEND_URL}/users/login`, user, { headers: headers })
-      axios.post(`http://localhost:8000/api/login`, user, { headers: headers })
+      axios.post(`${BACKEND_URL}/api/login`, user, { headers: headers })
         .then((res) => {
           if (res.data.success === true) {
             // console.log(res.data)

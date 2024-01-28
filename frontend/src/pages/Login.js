@@ -1,5 +1,5 @@
 import React, { useContext, useState } from 'react'
-import "./css/login.css"
+import "../css/login.css"
 import { Formik, Form, Field } from 'formik';
 import * as Yup from 'yup';
 import axios from "axios";
@@ -7,7 +7,9 @@ import AuthContext from '../context/AuthContext';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 export const Login = () => {
+const BACKEND_URL= process.env.REACT_APP_BACKEND_URL;
 
+// console.log(BACKEND_URL)
   const { setUser } = useContext(AuthContext);
   const validationSchema = Yup.object().shape({
     logemail: Yup.string().email('Invalid email address').required('Required'),
@@ -50,7 +52,7 @@ export const Login = () => {
       email: values.signUpEmail,
       password: values.signUpPass,
     }
-    const res = await axios.post("http://localhost:8000/api/register", postData)
+    const res = await axios.post(`${BACKEND_URL}/api/register`, postData)
     if (res.data.success === true) {
       console.log(res);
       toast.success("Registered Successfully !");

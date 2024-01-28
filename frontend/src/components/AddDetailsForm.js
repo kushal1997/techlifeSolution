@@ -19,6 +19,8 @@ const validationSchema = Yup.object({
 
 
 export const AddDetailsForm = ({ setShowForm }) => {
+const BACKEND_URL= process.env.REACT_APP_BACKEND_URL;
+
     const bodyRef = useRef(null);
 const {errorHandleLogout}=useContext(AuthContext)
 
@@ -40,7 +42,7 @@ const {errorHandleLogout}=useContext(AuthContext)
         try{
             loadingToast = toast.loading("Adding details in progress...");
 
-            const res = await axios.post("http://localhost:8000/api/addDetails", postData)
+            const res = await axios.post(`${BACKEND_URL}/api/addDetails`, postData)
             if (res.data.success === true) {
                 console.log(res);
                 toast.success(`${res.data.message}`);
@@ -52,7 +54,8 @@ const {errorHandleLogout}=useContext(AuthContext)
 
         } catch(err){
             console.log("Session Timeout", err);
-            // errorHandleLogout();
+            alert("Session Timeout")
+            errorHandleLogout();
         }finally {
             // Close the loading state
             if (loadingToast) {
@@ -127,6 +130,7 @@ const {errorHandleLogout}=useContext(AuthContext)
                     )}
                 </Formik>
             </div>
+            <ToastContainer/>
         </div>
     )
 }
