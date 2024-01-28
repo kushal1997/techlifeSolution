@@ -1,7 +1,9 @@
 const mongoose=require('mongoose')
+require('dotenv').config();
 
-const DB = "mongodb+srv://kushalrao103:id7Uu4VSOQMOEcyb@cluster0.ur4d3vt.mongodb.net/techlife_solutions";
-// id7Uu4VSOQMOEcyb
+
+const DB = process.env.DB_CONNECTION_STRING;
+
 mongoose.connect(DB);
 
 const db= mongoose.connection;
