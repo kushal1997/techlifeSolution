@@ -50,7 +50,7 @@ export const Login = () => {
     }
   };
   return (
-    <div className='login'>
+    <div className='loginPage'>
       <div className="section">
         <div className="container">
           <div className="row full-height justify-content-center">
