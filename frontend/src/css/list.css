@@ -1,0 +1,34 @@
+/* App.css */
+
+.listData {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    max-height: 80vh;
+    overflow-y: auto;
+}
+
+.business-table {
+    border-collapse: collapse;
+    width: 80%;
+    border: 2px solid white;
+}
+
+.business-table th {
+    border: 1px solid black;
+    text-align: center;
+}
+
+.business-table td {
+    border: 1px solid white;
+    color: white;
+    padding: 2px 5px;
+}
+.business-table a{
+    color: white;
+
+}
+
+.business-table thead {
+    background-color: white;
+}

@@ -36,9 +36,9 @@ const {errorHandleLogout}=useContext(AuthContext)
             phoneNumber: values.phoneNumber,
         }
         // console.log(postData)
-        let loadingToast;
+            let loadingToast;
         try{
-            loadingToast = toast.loading("Registration in progress...");
+            loadingToast = toast.loading("Adding details in progress...");
 
             const res = await axios.post("http://localhost:8000/api/addDetails", postData)
             if (res.data.success === true) {
@@ -51,8 +51,8 @@ const {errorHandleLogout}=useContext(AuthContext)
             }
 
         } catch(err){
-            alert("Session Timeout", err);
-            errorHandleLogout();
+            console.log("Session Timeout", err);
+            // errorHandleLogout();
         }finally {
             // Close the loading state
             if (loadingToast) {

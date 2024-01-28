@@ -32,6 +32,7 @@
   .header-blue .navbar .navbar-brand {
     font-weight:bold;
     color:inherit;
+    margin: 0;
   }
   
   .header-blue .navbar .navbar-brand:hover {
@@ -87,6 +88,7 @@
     .header-blue .navbar-nav .nav-link {
       padding-left:1.2rem;
       padding-right:1.2rem;
+      margin:0;
     }
   }
   

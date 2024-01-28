@@ -1,9 +1,14 @@
 import React, { useContext, useState } from 'react'
-import "./css/home.css"
+import "../css/home.css"
 import gif from "../assets/mobile.gif"
 import AuthContext from '../context/AuthContext'
 import { AddDetailsForm } from '../components/AddDetailsForm'
+import { Link } from 'react-router-dom'
+import { ProtectedRoutes } from '../routes/ProtectedRoutes'
+import { BusinessList } from '../components/BusinessList'
 export const Home = () => {
+const [shouldShow,setsShouldShow] =useState(false);
+ 
   const [showForm,setShowForm]=useState(false);
 
   const {handleLogout}=useContext(AuthContext)
@@ -13,9 +18,9 @@ export const Home = () => {
   <div className="header-blue">
     <nav className="navbar navbar-dark navbar-expand-md navigation-clean-search">
       <div className="container">
-        <a className="navbar-brand" href="/homepage">
+        <p className="navbar-brand" style={{cursor:"pointer"}} onClick={()=>setsShouldShow(false)}>
           Techlife Solutions
-        </a>
+        </p>
         <button
           className="navbar-toggler"
           data-toggle="collapse"
@@ -27,9 +32,9 @@ export const Home = () => {
         <div className="collapse navbar-collapse" id="navcol-1">
           <ul className="nav navbar-nav">
             <li className="nav-item" role="presentation">
-              <a className="nav-link active" >
+              <p className="nav-link active" style={{cursor:"pointer"}} onClick={()=>setsShouldShow(true)}>
                 Business List
-              </a>
+              </p>
             </li>
            
           </ul>
@@ -38,7 +43,7 @@ export const Home = () => {
               
             </div>
           </form>
-          <a href="/homepage" id='nameTag'>
+          <a href="/homepage" id='nameTag' >
              Hii {name}
             </a>
           <a className="btn btn-light action-button" role="button" onClick={()=>handleLogout()}>
@@ -53,6 +58,11 @@ export const Home = () => {
 
 
 {/* body replaced with list */}
+
+{
+  shouldShow ? (
+    <ProtectedRoutes element={<BusinessList/>}/>
+     ):(
     <div className="container hero">
       <div className="row">
         <div className="col-12 col-lg-6 col-xl-5 offset-xl-1">
@@ -72,6 +82,10 @@ export const Home = () => {
         </div>
       </div>
     </div>
+  )
+}
+
+    
 
 
   </div>

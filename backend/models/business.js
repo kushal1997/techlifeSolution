@@ -16,7 +16,6 @@ const businessShema= new mongoose.Schema({
       },
       website:{
         type: String,
-        unique:true,
       },
       contactPerson:{
         type: String,
@@ -25,6 +24,8 @@ const businessShema= new mongoose.Schema({
         type: String,
       },
 
+},{
+  timestamps: true
 })
 
 const Business=mongoose.model('business-list',businessShema)
