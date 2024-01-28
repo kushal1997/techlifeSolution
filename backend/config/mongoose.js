@@ -1,6 +1,6 @@
 const mongoose=require('mongoose')
 
-const DB = "mongodb+srv://kushalrao103:u61WuUdnLhDjJK24@cluster0.peevqcr.mongodb.net/?retryWrites=true&w=majority";
+const DB = "mongodb+srv://kushalrao103:u61WuUdnLhDjJK24@cluster0.peevqcr.mongodb.net/?retryWrites=true&w=majority/techlife_solutions";
 
 mongoose.connect(DB);
 

@@ -1,19 +1,33 @@
-import React from 'react'
+import React, { useContext } from 'react'
 import "./css/login.css"
 import { Formik, Form, Field } from 'formik';
 import * as Yup from 'yup';
 import axios from "axios";
+import AuthContext from '../context/AuthContext';
 
 export const Login = () => {
+
+  const {setUser} =useContext(AuthContext);
   const validationSchema = Yup.object().shape({
     logemail: Yup.string().email('Invalid email address').required('Required'),
     logpass: Yup.string().required('Password is required'),
   });
 
-  const onSubmit = (values) => {
+  const onSubmit = async (values) => {
     // Handle form submission here
     console.log('Form submitted:', values);
-
+    // const postData = {
+    //   email: values.logemail,
+    //   password: values.logpass,
+    // }
+    // const res = await axios.post("http://localhost:8000/api/login",postData)
+    // if(res){
+    //   console.log(res);
+    // }
+    setUser({
+      email: values.logemail,
+      password: values.logpass,
+  });
   };
 
   const validationSchemaSignup = Yup.object().shape({
@@ -150,7 +164,7 @@ export const Login = () => {
                                   {errors.signUpPass && touched.signUpPass && <div className="invalid-feedback">{errors.signUpPass}</div>}
                                 </div>
                                 <button type="submit" className="btn btn-primary mt-4">
-                                  {'Submit'}
+                                  {'Register'}
                                 </button>
                               </Form>
                             )}

@@ -1,5 +1,6 @@
 const Users = require("../models/user")
 const bcrypt = require('bcrypt');
+const jwt = require('jsonwebtoken')
 
 module.exports.register = async (req, res) => {
 
@@ -19,14 +20,14 @@ module.exports.register = async (req, res) => {
             password: req.body.password,
             // password: hashedPassword,
         })
-        res.json({
-            status:"ok",
+        return res.json({
+            status: "ok",
             message: 'Registered Successfully',
             success: true
 
         });
     } catch (err) {
-        console.log("error in register",err)
+        console.log("error in register", err)
         if (err.code === 11000 && err.keyPattern && err.keyPattern.email) {
             // Duplicate email error
             return res.json({
@@ -43,3 +44,44 @@ module.exports.register = async (req, res) => {
     });
 }
 
+module.exports.login = async (req, res) => {
+    console.log(req.body);
+
+    try {
+        const user = await Users.findOne({
+            email: req.body.email,
+            password: req.body.password,
+        });
+
+        if (user) {
+            // Set token expiration time (e.g., 1 hour)
+            const tokenExpiration = '1h';
+
+            const token = jwt.sign({
+                name: user.name,
+                email: user.email
+            },
+                'your-secret-key', // Use a strong secret key
+                { expiresIn: tokenExpiration }
+            );
+
+            return res.status(200).send({
+                success: true,
+                message: "Login successful",
+                token: token,
+                data:user
+            });
+        } else {
+            return res.status(400).send({
+                success: false,
+                message: 'Invalid Credentials'
+            });
+        }
+    } catch (error) {
+        console.error(error);
+        return res.status(500).send({
+            success: false,
+            message: 'Internal Server Error'
+        });
+    }
+};
