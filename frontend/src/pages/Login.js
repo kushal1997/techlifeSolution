@@ -1,4 +1,4 @@
-import React, { useContext, useState } from 'react'
+import React, { useContext } from 'react'
 import "../css/login.css"
 import { Formik, Form, Field } from 'formik';
 import * as Yup from 'yup';
@@ -38,12 +38,8 @@ const BACKEND_URL= process.env.REACT_APP_BACKEND_URL;
     signUpEmail: Yup.string().email('Invalid email address').required('Required'),
     signUpPass: Yup.string().required('Password is required'),
   });
-  const [isChecked, setIsChecked] = useState(true);
 
-  // Event handler to toggle the checkbox state
-  const handleCheckboxChange = () => {
-    setIsChecked(!isChecked);
-  };
+  
   const onSubmitSignup = async (values) => {
     // Handle form submission here
     console.log('Form submitted:', values);

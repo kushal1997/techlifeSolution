@@ -3,7 +3,6 @@ import "../css/home.css"
 import gif from "../assets/mobile.gif"
 import AuthContext from '../context/AuthContext'
 import { AddDetailsForm } from '../components/AddDetailsForm'
-import { Link } from 'react-router-dom'
 import { ProtectedRoutes } from '../routes/ProtectedRoutes'
 import { BusinessList } from '../components/BusinessList'
 export const Home = () => {
@@ -46,9 +45,9 @@ const [shouldShow,setsShouldShow] =useState(false);
           <a href="/homepage" id='nameTag' >
              Hii {name}
             </a>
-          <a className="btn btn-light action-button" role="button" onClick={()=>handleLogout()}>
+          <p className="btn btn-light action-button" role="button" onClick={()=>handleLogout()} style={{margin:0}}>
             Sign Out
-          </a>
+          </p>
         </div>
       </div>
       {
@@ -76,7 +75,7 @@ const [shouldShow,setsShouldShow] =useState(false);
         </div>
         <div className="col-md-5 col-lg-5 offset-lg-1 offset-xl-0 d-none d-lg-block phone-holder">
           <div className="iphone-mockup">
-            <img src={gif} className="device" />
+            <img src={gif} className="device" alt='gif' />
             <div className="screen" />
           </div>
         </div>

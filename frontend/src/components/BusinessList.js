@@ -26,7 +26,7 @@ export const BusinessList = () => {
                 
             } catch (err) {
                 console.log("Session Timeout", err);
-                // errorHandleLogout();
+                errorHandleLogout();
 
             }finally {
                 // Close the loading state
@@ -37,7 +37,7 @@ export const BusinessList = () => {
         };
 
         fetchData();
-    }, []);
+    }, [userId,errorHandleLogout]);
     // useEffect(() => {
     //     console.log("data", datas)
     // }, [datas])
