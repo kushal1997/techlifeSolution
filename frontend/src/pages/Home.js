@@ -1,8 +1,11 @@
-import React, { useContext } from 'react'
+import React, { useContext, useState } from 'react'
 import "./css/home.css"
 import gif from "../assets/mobile.gif"
 import AuthContext from '../context/AuthContext'
+import { AddDetailsForm } from '../components/AddDetailsForm'
 export const Home = () => {
+  const [showForm,setShowForm]=useState(false);
+
   const {handleLogout}=useContext(AuthContext)
   const name=localStorage.getItem("name").toUpperCase();
   return (
@@ -24,7 +27,7 @@ export const Home = () => {
         <div className="collapse navbar-collapse" id="navcol-1">
           <ul className="nav navbar-nav">
             <li className="nav-item" role="presentation">
-              <a className="nav-link active" href="#">
+              <a className="nav-link active" >
                 Business List
               </a>
             </li>
@@ -43,6 +46,9 @@ export const Home = () => {
           </a>
         </div>
       </div>
+      {
+        showForm ? <AddDetailsForm setShowForm={setShowForm}/> : null
+      }
     </nav>
 
 
@@ -54,7 +60,7 @@ export const Home = () => {
           <p>
            Lorem ipsum dolor sit amet consectetur adipisicing elit. Officiis, aliquid fugit. Similique quasi libero tenetur perspiciatis commodi. A eveniet ullam mollitia nemo? Tempore, sequi? Blanditiis quasi debitis iusto impedit assumenda,{" "}
           </p>
-          <button className="btn btn-light btn-lg action-button" type="button">
+          <button className="btn btn-light btn-lg action-button" type="button" onClick={()=>setShowForm(!showForm)}>
             Add Business Details
           </button>
         </div>
