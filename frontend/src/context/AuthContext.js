@@ -53,7 +53,9 @@ const BACKEND_URL= process.env.REACT_APP_BACKEND_URL;
     // const apiBackendURL="http://backendvideo.stepsoflearningprocess.com:8001/users/login"
     // console.log("token",token)
     // console.log("success",success);
+    let loadingToast;
     try {
+      loadingToast = toast.loading("Login in progress...");
       // axios.post(`${BACKEND_URL}/users/login`, user, { headers: headers })
       axios.post(`${BACKEND_URL}/api/login`, user, { headers: headers })
         .then((res) => {
@@ -73,7 +75,12 @@ const BACKEND_URL= process.env.REACT_APP_BACKEND_URL;
       alert("Session Timeout", err);
       errorHandleLogout();
       navigate("/")
-    }
+    } finally {
+      // Close the loading state
+      if (loadingToast) {
+          toast.dismiss(loadingToast);
+      }
+  }
 
   };
 

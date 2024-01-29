@@ -7,9 +7,9 @@ import AuthContext from '../context/AuthContext';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 export const Login = () => {
-const BACKEND_URL= process.env.REACT_APP_BACKEND_URL;
+  const BACKEND_URL = process.env.REACT_APP_BACKEND_URL;
 
-// console.log(BACKEND_URL)
+  // console.log(BACKEND_URL)
   const { setUser } = useContext(AuthContext);
   const validationSchema = Yup.object().shape({
     logemail: Yup.string().email('Invalid email address').required('Required'),
@@ -39,7 +39,7 @@ const BACKEND_URL= process.env.REACT_APP_BACKEND_URL;
     signUpPass: Yup.string().required('Password is required'),
   });
 
-  
+
   const onSubmitSignup = async (values) => {
     // Handle form submission here
     console.log('Form submitted:', values);
@@ -48,14 +48,26 @@ const BACKEND_URL= process.env.REACT_APP_BACKEND_URL;
       email: values.signUpEmail,
       password: values.signUpPass,
     }
-    const res = await axios.post(`${BACKEND_URL}/api/register`, postData)
-    if (res.data.success === true) {
-      console.log(res);
-      toast.success("Registered Successfully !");
-      window.location.reload();
-    } else{
-      toast.error(`${res.data.message}`)
+    let loadingToast;
+    try {
+      loadingToast = toast.loading("Registration in progress...");
+      const res = await axios.post(`${BACKEND_URL}/api/register`, postData)
+      if (res.data.success === true) {
+        console.log(res);
+        toast.success("Registered Successfully !");
+        window.location.reload();
+      } else {
+        toast.error(`${res.data.message}`)
+      }
+    } catch (err) {
+      alert("Unable to Register")
+    } finally {
+      // Close the loading state
+      if (loadingToast) {
+        toast.dismiss(loadingToast);
+      }
     }
+
   };
   return (
     <div className='loginPage'>
@@ -73,7 +85,7 @@ const BACKEND_URL= process.env.REACT_APP_BACKEND_URL;
                   type="checkbox"
                   id="reg-log"
                   name="reg-log"
-                  
+
                 />
                 <label htmlFor="reg-log" />
                 <div className="card-3d-wrap mx-auto">
@@ -192,7 +204,7 @@ const BACKEND_URL= process.env.REACT_APP_BACKEND_URL;
           </div>
         </div>
       </div>
-      <ToastContainer/>
+      <ToastContainer />
     </div>
 
   )
